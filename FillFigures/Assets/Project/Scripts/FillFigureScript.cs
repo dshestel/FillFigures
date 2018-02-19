@@ -28,7 +28,7 @@ public class FillFigureScript : MonoBehaviour {
 		image.texture = texture;
 		image.SetNativeSize();
 	}
-
+		
 	private void Update()
 	{
 		if (Input.anyKeyDown)
@@ -37,9 +37,9 @@ public class FillFigureScript : MonoBehaviour {
 			{
 				for (int i = 0; i < fullCoordinates.Count - 1; i++)
 				{
-					DrawLine(texture, fullCoordinates[i], fullCoordinates[i + 1], Color.green);
+					DrawLine(texture, fullCoordinates[i], fullCoordinates[i + 1], Color.red);
 				}
-				DrawLine(texture, fullCoordinates[0], fullCoordinates[fullCoordinates.Count - 1], Color.green);
+				DrawLine(texture, fullCoordinates[0], fullCoordinates[fullCoordinates.Count - 1], Color.red);
 				fullCoordinates.RemoveRange(0, fullCoordinates.Count);
 			}
 			texture.Apply();
@@ -56,7 +56,9 @@ public class FillFigureScript : MonoBehaviour {
 			}
 
 			FillLeft((int)(startCoord.x + fullCoordinates[fullCoordinates.Count / 2].x) / 2,
-				(int)(startCoord.y + fullCoordinates[fullCoordinates.Count / 2].y) / 2, Color.black);
+				(int)(startCoord.y + fullCoordinates[fullCoordinates.Count / 2].y) / 2, Color.red);
+			FillRight((int)(startCoord.x + fullCoordinates[fullCoordinates.Count / 2].x) / 2 + 1,
+				(int)(startCoord.y + fullCoordinates[fullCoordinates.Count / 2].y) / 2 + 1, Color.red);
 
 			texture.Apply();
 			currentCoordinates.RemoveRange(0, currentCoordinates.Count);
@@ -92,7 +94,7 @@ public class FillFigureScript : MonoBehaviour {
 
 	private void FillLeft(int x, int y, Color color)
 	{
-		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
+		if (color != texture.GetPixel(x, y) && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
 			texture.SetPixel(x, y, Color.red);
 			FillLeft(x - 1, y, color);
@@ -107,12 +109,12 @@ public class FillFigureScript : MonoBehaviour {
 		{
 			texture.SetPixel(x, y, Color.red);
 			FillRight(x + 1, y, color);
-			FillDown(x, y - 1, color);
-			FillUp(x, y + 1, color);
+			FillRightDown(x, y - 1, color);
+			FillRightUp(x, y + 1, color);
 		}
 	}
 
-	private void FillDown(int x, int y, Color color)
+	private void FillRightDown(int x, int y, Color color)
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
@@ -122,7 +124,35 @@ public class FillFigureScript : MonoBehaviour {
 				FillRight(x + 1, y, color);
 			}
 
+			FillRightDown(x, y - 1, color);
+		}
+	}
+
+	private void FillDown(int x, int y, Color color)
+	{
+		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
+		{
+			texture.SetPixel(x, y, Color.red);
+			if (texture.GetPixel(x - 1, y) != Color.red)
+			{
+				FillLeft(x - 1, y, color);
+			}
+
 			FillDown(x, y - 1, color);
+		}
+	}
+
+	private void FillRightUp(int x, int y, Color color)
+	{
+		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
+		{
+			texture.SetPixel(x, y, Color.red);
+			if (texture.GetPixel(x + 1, y) != Color.red)
+			{
+				FillLeft(x + 1, y, color);
+			}
+
+			FillRightUp(x, y + 1, color);
 		}
 	}
 
@@ -131,9 +161,9 @@ public class FillFigureScript : MonoBehaviour {
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
 			texture.SetPixel(x, y, Color.red);
-			if (texture.GetPixel(x + 1, y) != Color.red)
+			if (texture.GetPixel(x - 1, y) != Color.red)
 			{
-				FillRight(x + 1, y, color);
+				FillLeft(x - 1, y, color);
 			}
 
 			FillUp(x, y + 1, color);
