@@ -96,6 +96,10 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			FillLeft(x - 1, y, color);
 			FillDown(x, y - 1, color);
@@ -107,6 +111,10 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			FillRight(x + 1, y, color);
 			FillRightDown(x, y - 1, color);
@@ -118,6 +126,10 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			if (texture.GetPixel(x + 1, y) != Color.red)
 			{
@@ -132,6 +144,10 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			if (texture.GetPixel(x - 1, y) != Color.red)
 			{
@@ -146,10 +162,14 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			if (texture.GetPixel(x + 1, y) != Color.red)
 			{
-				FillLeft(x + 1, y, color);
+				FillRight(x + 1, y, color);
 			}
 
 			FillRightUp(x, y + 1, color);
@@ -160,6 +180,10 @@ public class FillFigureScript : MonoBehaviour {
 	{
 		if (color != texture.GetPixel(x, y) && texture.GetPixel(x, y) != Color.red && x > 0 && x < 1920 && y > 0 && y < 1080)
 		{
+			if (x == 960 && y == 540)
+			{
+				Debug.Log("Hello");
+			}
 			texture.SetPixel(x, y, Color.red);
 			if (texture.GetPixel(x - 1, y) != Color.red)
 			{
